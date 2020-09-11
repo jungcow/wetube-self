@@ -6,13 +6,13 @@ const LOGIN = '/login';
 const LOGOUT = '/logout';
 
 //User
-const USER = '/user';
+const USER = '/users';
 const USER_DETAIL = '/:id';
 const EDIT_PROFILE = '/edit';
 const CHANGE_PASSWORD = '/change-password';
 
 //Video
-const VIDEO = '/video';
+const VIDEO = '/videos';
 const UPLOAD = '/upload';
 const VIDEO_DETAIL = '/:id';
 const EDIT_VIDEO = '/:id/edit';
@@ -25,12 +25,24 @@ const routes = {
     login: LOGIN,
     logout: LOGOUT,
     user: USER,
-    userDetail: USER_DETAIL,
+    userDetail: (id) => {
+        if (id) {
+            return `/users/${id}`
+        } else {
+            return USER_DETAIL
+        }
+    },
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
     video: VIDEO,
     upload: UPLOAD,
-    videoDetail: VIDEO_DETAIL,
+    videoDetail: (id) => {
+        if (id) {
+            return `/videos/${id}`
+        } else {
+            return VIDEO_DETAIL
+        }
+    },
     editVideo: EDIT_VIDEO,
     deleteVideo: DELETE_VIDEO
 };

@@ -19,6 +19,7 @@ const app = express();
 
 app.set('view engine', 'pug');
 
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.SECRET
 }));
+app.use('/upload', express.static('upload'));
 
 app.use(localMiddlewares);
 
