@@ -1,0 +1,6 @@
+mixin videoBlock(video={})
+    a(href=routes.videoDetail(video.id))
+        video(src=video.fileUrl, width=620, height=400)
+        h1=video.title
+        h4=video.description
+        h4=video.views
