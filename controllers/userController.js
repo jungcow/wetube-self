@@ -1,32 +1,43 @@
 import routes from '../routes';
+import User from '../models/User';
+import passport from 'passport';
+// import express from 'express-s';
 
 export const getJoin = (req, res) => {
     res.render('join', { title: '회원가입' });
 }
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res, next) => {
     const { body: { name, email, password, password2 } } = req;
     if (password !== password2) {
         res.status(400);
-        //화면에 에러처리
         res.render('join', { title: '회원가입' });
     } else {
-        //가입처리
-        //로그인처리
-        res.redirect(routes.home);
+        try {
+            const user = await new User({
+                name,
+                email
+            });
+            await User.register(user, password);
+            next();
+            //로그인처리
+        } catch (error) {
+            console.log(error);
+            res.redirect(routes.home);
+        }
     }
 }
 
 export const getLogin = (req, res) => {
     res.render('login', { title: '로그인' });
 }
-export const postLogin = (req, res) => {
-    const { body: { email, password } } = req;
-    //passport로 사용자 인증 구현
-    res.render('login', { title: '로그인' });
-}
+export const postLogin = passport.authenticate('local', {
+    successRedirect: routes.home,
+    failureRedirect: routes.login
+});
 
 export const logout = (req, res) => {
-    res.render('logout', { title: '로그아웃' });
+    req.logout();
+    res.redirect(routes.home);
 }
 export const editProfile = (req, res) => {
     res.render('editProfile', { title: '회원 정보 수정' });

@@ -3,7 +3,6 @@ import Video from '../models/Video';
 
 export const home = async (req, res) => {
     const videos = await Video.find().sort({ _id: -1 });
-    console.log(videos);
     if (videos) {
         res.render('home', { videos })
     } else {
@@ -47,7 +46,6 @@ export const videoDetail = async (req, res) => {
     const { params: { id } } = req;
     try {
         const video = await Video.findById(id);
-        console.log(video);
         res.render('videoDetail', { title: video.title, video });
     } catch (error) {
         console.log(error);

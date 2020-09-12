@@ -4,33 +4,41 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
 import session from 'express-session';
+import passport from 'passport';
 import routes from './routes';
 import { globalRouter } from './router/globalRouter';
 import { userRouter } from './router/userRouter';
 import { videoRouter } from './router/videoRouter';
 import { localMiddlewares } from './middleware';
 
-
+import './passport';
 
 dotenv.config();
 
 const app = express();
 
-app.set('view engine', 'pug');
+const CookieStore = MongoStore(session);
 
+app.use(helmet());
+app.set('view engine', 'pug');
+app.use('/upload', express.static('upload'));
 
 app.use(morgan('dev'));
-app.use(helmet());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: process.env.SECRET
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CookieStore({ mongooseConnection: mongoose.connection })
 }));
-app.use('/upload', express.static('upload'));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(localMiddlewares);
 

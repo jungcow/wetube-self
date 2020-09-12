@@ -1,10 +1,11 @@
 import dotenv from 'dotenv';
-
 dotenv.config();
 
-import express from 'express';
 import app from './app';
 import './db';
+
+import "./models/Video";
+import "./models/User";
 
 const PORT = process.env.PORT || 8000;
 
