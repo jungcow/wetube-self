@@ -1,26 +1,27 @@
 header.header   
-    .header__column
-        .header__column--icon
-            a(href=routes.home)
-                i.fab.fa-youtube
-    .header__column
-        .form-container
-            form(action=routes.search, method='get')
-                input(type='text', name='term',placeholder='Search Videos!')
-    .header__column
-        if !user
-            .header__column--text
-                a(href=routes.join)
-                    | join
-                a(href=routes.login)
-                    | login
-        else
-            .header__column--text
-                a(href=`/videos${routes.upload}`)
-                    | Upload
-                a(href=routes.userDetail(user.id))
-                    | Profile
-                a(href=routes.logout)
-                    | Logout
+        .header-wrapper
+            .header__column
+                .header__column--icon
+                    a(href=routes.home)
+                        i.fab.fa-youtube
+            .header__column
+                .form-container__header
+                    form(action=routes.search, method='get')
+                        input(type='text', name='term',placeholder='검색')
+            .header__column
+                if !loggedUser
+                    .header__column--text
+                        a(href=routes.join)
+                            | join
+                        a(href=routes.login)
+                            | login
+                else
+                    .header__column--text
+                        a(href=`/videos${routes.upload}`)
+                            | Upload
+                        a(href=routes.me)
+                            | Profile
+                        a(href=routes.logout)
+                            | Logout
 
 

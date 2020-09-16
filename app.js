@@ -13,18 +13,19 @@ import { globalRouter } from './router/globalRouter';
 import { userRouter } from './router/userRouter';
 import { videoRouter } from './router/videoRouter';
 import { localMiddlewares } from './middleware';
+dotenv.config();
 
 import './passport';
 
-dotenv.config();
 
 const app = express();
 
 const CookieStore = MongoStore(session);
 
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.set('view engine', 'pug');
 app.use('/upload', express.static('upload'));
+app.use('/static', express.static('static'));
 
 app.use(morgan('dev'));
 app.use(cookieParser());

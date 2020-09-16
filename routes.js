@@ -10,6 +10,7 @@ const USER = '/users';
 const USER_DETAIL = '/:id';
 const EDIT_PROFILE = '/edit';
 const CHANGE_PASSWORD = '/change-password';
+const ME = '/me';
 
 //Video
 const VIDEO = '/videos';
@@ -17,6 +18,14 @@ const UPLOAD = '/upload';
 const VIDEO_DETAIL = '/:id';
 const EDIT_VIDEO = '/:id/edit';
 const DELETE_VIDEO = '/:id/delete';
+
+//Github
+const GH_LOGIN = '/auth/github';
+const GH_CALLBACK = '/auth/github/callback';
+
+//Kakao
+const KAKAO_LOGIN = '/auth/kakao';
+const KAKAO_CALLBACK = '/oauth';
 
 const routes = {
     home: HOME,
@@ -44,7 +53,12 @@ const routes = {
         }
     },
     editVideo: EDIT_VIDEO,
-    deleteVideo: DELETE_VIDEO
+    deleteVideo: DELETE_VIDEO,
+    githubLogin: GH_LOGIN,
+    githubCallback: GH_CALLBACK,
+    me: ME,
+    kakaoLogin: KAKAO_LOGIN,
+    kakaoCallback: KAKAO_CALLBACK
 };
 
 export default routes;

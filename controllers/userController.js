@@ -1,7 +1,6 @@
 import routes from '../routes';
 import User from '../models/User';
 import passport from 'passport';
-// import express from 'express-s';
 
 export const getJoin = (req, res) => {
     res.render('join', { title: '회원가입' });
@@ -19,7 +18,6 @@ export const postJoin = async (req, res, next) => {
             });
             await User.register(user, password);
             next();
-            //로그인처리
         } catch (error) {
             console.log(error);
             res.redirect(routes.home);
@@ -35,6 +33,69 @@ export const postLogin = passport.authenticate('local', {
     failureRedirect: routes.login
 });
 
+export const githubLogin = passport.authenticate('github');
+
+export const kakaoLogin = passport.authenticate('kakao');
+
+export const postGithubLogin = (req, res) => {
+    res.redirect(routes.home);
+}
+export const postKakaoLogin = (req, res) => {
+    res.redirect(routes.home);
+}
+
+export const GihubCallbackLogin = async (accessToken, refreshToken, profile, cb) => {
+    console.log(profile._json);
+    const { _json: { id, avatar_url, login: name } } = profile;
+    let { _json: { email } } = profile;
+    if (!email) {
+        const { value: privateEmail } = profile.emails.filter((email) => email.primary)[0];
+        email = privateEmail;
+    }
+    try {
+        const user = await User.findOne({ email });
+        if (user) {
+            if (!user.avatarUrl) {
+                user.avatarUrl = avatar_url;
+            }
+            user.githubId = id;
+            user.save();
+            return cb(null, user);
+        }
+        const newUser = await User.create({
+            name,
+            email,
+            avatarUrl: avatar_url,
+            githubId: id
+        });
+        return cb(null, newUser);
+    } catch (error) {
+        return cb(error);
+    }
+}
+
+export const KakaoCallbackLogin = async (accessToken, refreshToken, profile, cb) => {
+    const { _json: { id, properties: { nickname: name } } } = profile;
+    const { _json: { kakao_account: { email } } } = profile;
+    console.log(email);
+    try {
+        const user = await User.findOne({ email });
+        if (user) {
+            user.kakaoTalkId = id;
+            user.save();
+            return cb(null, user);
+        }
+        const newUser = await User.create({
+            name,
+            email,
+            kakaoTalkId: id
+        })
+        return cb(null, newUser);
+    } catch (error) {
+        return cb(error);
+    }
+}
+
 export const logout = (req, res) => {
     req.logout();
     res.redirect(routes.home);
@@ -45,7 +106,12 @@ export const editProfile = (req, res) => {
 export const changePassword = (req, res) => {
     res.render('changePassword', { title: '비밀번호 변경' });
 }
-export const userDetail = (req, res) => {
-    res.render('userDetail', { title: '회원 상세 정보' });
+export const userDetail = async (req, res) => {
+    const { params: { id } } = req;
+    const user = await User.findById(id);
+    res.render('userDetail', { title: '회원 상세 정보', user });
 }
 
+export const getMe = (req, res) => {
+    res.render('userDetail', { title: '내 프로필', user: req.user });
+}

@@ -1,0 +1,28 @@
+.form-container{
+    margin-top: 70px;
+    form{
+        width: 380px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.2);
+            &:focus::placeholder{
+                color: #00b894;
+            }
+        }
+        input[type='submit']{
+            background-color: $red;
+            color: #f7f7f7;
+            &:active{
+                box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.4);
+            }
+        }
+    }
+}

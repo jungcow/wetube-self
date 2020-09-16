@@ -1,5 +1,11 @@
 .socialLogin
     .socialLogin__github
-        i.fab.fa-github  Continue with github
+        button
+            a(href=routes.githubLogin)
+                i.fab.fa-github.fa-2x  
+                span &nbsp Continue with github
     .socialLogin__kakao
-        i.fas.fa-comment  Continue with Kakao Talk
+        button
+            a(href=routes.kakaoLogin)
+                img(src='https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png') 
+                span Continue with Kakao Talk

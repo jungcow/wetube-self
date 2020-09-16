@@ -1,0 +1,42 @@
+.socialLogin{
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    button{
+        margin-bottom: 10px;
+        width: 380px;
+        height: 37px;
+        border-radius: 3px;
+        border: 1px solid rgba(0,0,0,0.2);
+        a{
+            span{
+                padding-left: 10px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:visited,
+            &:link{
+                color: #f7f7f7;
+            }
+        }
+    }
+    .socialLogin__github{
+        button{
+            background-color: $black;
+        }
+    }
+    .socialLogin__kakao{
+        button{
+            background-color: rgb(250, 225, 0);
+            a:visited,
+            a:link{
+                color: $black;
+            }
+        }
+    }
+}
