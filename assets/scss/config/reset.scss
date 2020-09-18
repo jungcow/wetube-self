@@ -51,7 +51,7 @@ a{
     all: unset;
     cursor: pointer;
     &:visited{
-        color: #f7f7f7;
+        color: $black;
     }
 }
 
@@ -64,4 +64,9 @@ a{
 }
 input[type='submit']{
     cursor: pointer;
+}
+
+button{
+	border: none;
+	cursor: pointer;
 }

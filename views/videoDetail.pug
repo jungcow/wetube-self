@@ -1,7 +1,23 @@
 extends layout/main
 
 block content
-    video(src=`/${video.fileUrl}`, width=820, height=500)
-    h2=video.title
-    h4=video.description
-    h6=video.views
+    .videoDetail
+        video(src=`/${video.fileUrl}`, width=820, height=480, controls)
+        .videoDetail__explanation
+            .videoDetail__column
+                h2.videoDetail__title=video.title
+                if loggedUser.id===video.creator.id && !null
+                    a(href=routes.editVideo(video.id))
+                        button Edit Video
+            .videoDetail__column
+                h6.videoDetail__views 조회수 #{video.views} 회 •
+                h6.videoDetail__createdAt &nbsp #{video.createdAt} 
+                //- 시간을 연도.날짜로 변환
+            .videoDetail__column
+                a(href=routes.userDetail(video.creator.id))
+                    .videoDetail__avatarContainer
+                        .videoDetail__avatar
+                            if video.creator.avatarUrl
+                                img(src=`/${video.creator.avatarUrl}`)
+                        h4 &nbsp #{video.creator.name} 
+                h4.videoDetail__description=video.description 

@@ -1,7 +1,7 @@
 import routes from '../routes';
 import User from '../models/User';
 import passport from 'passport';
-
+import 'passport-local-mongoose';
 export const getJoin = (req, res) => {
     res.render('join', { title: '회원가입' });
 }
@@ -100,16 +100,58 @@ export const logout = (req, res) => {
     req.logout();
     res.redirect(routes.home);
 }
-export const editProfile = (req, res) => {
+export const getEditProfile = (req, res) => {
     res.render('editProfile', { title: '회원 정보 수정' });
 }
-export const changePassword = (req, res) => {
+
+export const postEditProfile = async (req, res) => {
+    const { body: { name, email }, file } = req;
+    try {
+        await User.findByIdAndUpdate(req.user.id, {
+            name,
+            email,
+            avatarUrl: file ? file.path : req.user.avatarUrl
+        });
+        res.redirect(routes.me);
+    } catch (error) {
+        res.status(400);
+        res.redirect(`/users${routes.editProfile}`);
+    }
+}
+
+export const getChangePassword = (req, res) => {
     res.render('changePassword', { title: '비밀번호 변경' });
 }
+export const postChangePassword = async (req, res) => {
+    const { body: {
+        currentPassword,
+        newPassword,
+        newPassword2 } } = req;
+    try {
+        if (newPassword !== newPassword2) {
+            throw Error();
+        }
+        console.log(req.user);
+        await req.user.changePassword(currentPassword, newPassword);
+        console.log(req.user);
+        res.redirect(routes.me);
+    } catch (error) {
+        console.log(error);
+        res.status(400);
+        res.redirect(`/users${routes.changePassword}`);
+    }
+}
+
 export const userDetail = async (req, res) => {
     const { params: { id } } = req;
-    const user = await User.findById(id);
-    res.render('userDetail', { title: '회원 상세 정보', user });
+    try {
+        const user = await User.findById(id).populate('videos');
+        console.log(user);
+        res.render('userDetail', { title: '회원 상세 정보', user });
+    } catch (error) {
+        console.log(error);
+        res.redirect(route.home);
+    }
 }
 
 export const getMe = (req, res) => {

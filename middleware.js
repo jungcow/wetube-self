@@ -3,6 +3,7 @@ import routes from './routes';
 import multer from 'multer';
 
 const multerVideo = multer({ dest: 'upload/video/' })
+const multerAvatar = multer({ dest: 'upload/avatar/' })
 
 export const localMiddlewares = (req, res, next) => {
     res.locals.routes = routes;
@@ -25,6 +26,5 @@ export const isNotLoggedIn = (req, res, next) => {
     }
 }
 
-
-
 export const uploadVideo = multerVideo.single('videoFile');
+export const uploadAvatar = multerAvatar.single('avatarUrl');

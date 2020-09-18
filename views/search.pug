@@ -3,8 +3,20 @@ extends layout/main
 block content
     .search-container
         .search__column
-            .search__text
-                | Results for #{searchingBy}
-        .search__column
-            .search__number
-                | number
+            if videos.length===0
+                span.search__text #{searchingBy}에 대한 결과는 없습니다.
+            else
+                span.search__text #{searchingBy}에 대한 결과가 #{videos.length}개 있습니다.
+        .search__column--video
+            each video in videos
+                .video__column--search
+                    a.video__videoDetail(href=routes.videoDetail(video.id))
+                    video.video__video--search(src=`/${video.fileUrl}` width=250, height= 150)
+                    .video__contents--search
+                        h4.video__title--search=video.title
+                        .video__creatorAndViews--search
+                            a(href=routes.userDetail(video.creator.id))
+                                h4.video__creator--search=video.creator.name
+                            h4.video__views--search &nbsp • 조회수 #{video.views}회
+                        h6.video__description--search=video.description
+

@@ -121,3 +121,5 @@ package-lock.json
 node_modules
 
 upload
+
+static

@@ -1,7 +1,12 @@
 @import 'config/_variables';
 @import 'config/reset.scss';
 @import 'main.scss';
-@import 'header.scss';
-@import 'form.scss';
-@import 'socialLogin.scss';
-@import 'footer.scss';
+@import 'partials/header.scss';
+@import 'partials/form.scss';
+@import 'partials/socialLogin.scss';
+@import 'partials/footer.scss';
+@import 'partials/videoBlock.scss';
+@import 'pages/videoDetail.scss';
+@import 'pages/home.scss';
+@import 'pages/userDetail.scss';
+@import 'pages/search.scss';

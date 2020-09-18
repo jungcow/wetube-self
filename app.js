@@ -43,6 +43,7 @@ app.use(passport.session());
 
 app.use(localMiddlewares);
 
+
 app.use(routes.home, globalRouter);
 app.use(routes.user, userRouter);
 app.use(routes.video, videoRouter);

@@ -1,5 +1,28 @@
 .form-container{
     margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .deleteVideoBtn{
+        margin-top: 20px;
+        width: 380px;
+        height: 37px;
+        border-radius: 3px;
+        border: 1px solid rgba(0,0,0,0.2);
+        background-color: $blue;
+        a{
+            span{
+                padding-left: 10px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:visited,
+            &:link{
+                color: #f7f7f7;
+            }
+        }
+    }
     form{
         width: 380px;
         margin: 0 auto;
@@ -26,3 +49,4 @@
         }
     }
 }
+

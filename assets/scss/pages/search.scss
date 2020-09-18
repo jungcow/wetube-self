@@ -1,0 +1,46 @@
+.search-container{
+    margin: 15px 10px 10px;
+    .search__column{
+        .search__text{
+            margin: 0 10px;
+            font-size: 14px;
+        }
+    }
+    .search__column--video{
+        .video__column--search{
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin: 10px 0;
+            .video__videoDetail{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                display: block;
+            }
+            .video__video--search{
+                margin-right: 15px;
+            }
+            .video__contents--search{
+                height: 150px;
+                padding: 10px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                .video__title--search{
+                    font-size: 25px;
+                    color: black;
+                    margin-bottom: 8px;
+                }
+                .video__creatorAndViews--search{
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 8px;
+                    z-index: 2;
+                }
+            }
+        }
+    }
+}

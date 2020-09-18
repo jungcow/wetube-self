@@ -10,6 +10,12 @@
     }
     .header__column{
         width: 33.3%;
+        a{
+            &:visited,
+            &:link{
+                color: #f7f7f7;
+            }
+        }
     }
     .header__column:first-child{
         margin-left: 20px;

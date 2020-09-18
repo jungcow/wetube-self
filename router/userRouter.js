@@ -1,10 +1,14 @@
 import express from 'express';
-import { editProfile, changePassword, userDetail } from '../controllers/userController';
+import { userDetail, getEditProfile, postEditProfile, getChangePassword, postChangePassword } from '../controllers/userController';
 import routes from '../routes';
-import { isLoggedIn } from '../middleware';
+import { isLoggedIn, uploadAvatar } from '../middleware';
 
 export const userRouter = express.Router();
 
-userRouter.get(routes.editProfile, isLoggedIn, editProfile);
-userRouter.get(routes.changePassword, isLoggedIn, changePassword);
+userRouter.get(routes.editProfile, isLoggedIn, getEditProfile);
+userRouter.post(routes.editProfile, uploadAvatar, isLoggedIn, postEditProfile);
+
+userRouter.get(routes.changePassword, isLoggedIn, getChangePassword);
+userRouter.post(routes.changePassword, isLoggedIn, postChangePassword);
+
 userRouter.get(routes.userDetail(), userDetail);
